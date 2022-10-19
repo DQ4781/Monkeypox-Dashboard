@@ -2,7 +2,7 @@ import pandas as pd
 
 
 url = "https://raw.githubusercontent.com/globaldothealth/monkeypox/main/latest_deprecated.csv"
-df = pd.read_csv(url)
+df = pd.read_csv(url, low_memory=False)
 
 # Collect US Confirmed Cases
 df = df.loc[(df['Country'] == 'United States') & (df['Status'] == 'confirmed')]
@@ -36,4 +36,5 @@ usMP = df.drop(columns=[ 'Symptoms',
  'Date_last_modified',
  'Date_onset'])
 
-
+# Fill NaN values in relevant attributes as a string
+usMP.fillna('', inplace=True)
