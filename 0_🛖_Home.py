@@ -1,15 +1,13 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
+import altair as alt
 from data import *
 
 
 ## PAGE INFO
 st.set_page_config(
     page_title="Monkeypox Dashboard",
-    page_icon="🛡",
-    initial_sidebar_state="collapsed"
+    page_icon="🛖"
 )
 st.sidebar.success("Select a page above.")
 st.title("Tracking US Monkeypox Infections in Real Time")
@@ -17,27 +15,9 @@ st.title("Tracking US Monkeypox Infections in Real Time")
 
 st.line_chart(nation_cum, x="epi_date_V2", y="Cumulative Cases")
 
+st.line_chart(nation_cum, x='epi_date_V2', y='Cases')
 
-
-sums = [int(gender_confirm["Men"].sum()),
-        int(gender_confirm["Women"].sum()),
-        int(gender_confirm["Another sex/gender"].sum()),
-        int(gender_confirm["Transgender women"].sum()),
-        int(gender_confirm["Transgender men"].sum())           
-        ]
-
-labels = ['Men', 'Women', 'Etc', 'Transgender Women', 'Trangender Men']
-colors = ['#5FCD32', '#32ACCD', '#A032CD', '#CD5332', 'crimson']
-explode = [0, 0.2, 0.4, 0.6, 0.8]
-
-fig1, ax1 = plt.subplots()
-ax1.pie(sums, labels=labels, autopct='%1.1f%%', explode=explode, shadow=True, colors=colors, radius=2)
-ax1.axis('equal')
-
-fig1.legend(sums, loc="upper right")
-
-st.pyplot(fig1)
-
+st.bar_chart(nation_cum, x='epi_date_V2', y='7-Day Average', use_container_width=True)
 
 
 
