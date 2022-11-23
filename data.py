@@ -17,3 +17,9 @@ state_vac.drop([0,1,2,57], inplace=True)
 nation_cum['epi_date_V2'] = pd.to_datetime(nation_cum['epi_date_V2'])
 race_percent['MMWR Week'] = pd.to_datetime(race_percent['MMWR Week'])
 
+
+state_vac.set_index("Reporting Jurisdictions", inplace=True)
+nyc = state_vac['Total'].loc["New York City"]
+state_vac.at["New York", "Total"] += nyc
+state_vac.drop(labels="New York City", inplace=True)
+state_vac.reset_index(inplace=True)
