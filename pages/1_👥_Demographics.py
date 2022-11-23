@@ -68,6 +68,14 @@ def weeklyRace():
     st.header("Weekly Percentage Difference of Race")
     st.line_chart(race_percent, x='MMWR Week', width=700, height=700)
 
+def cumCases():
+    st.line_chart(nation_cum, x="epi_date_V2", y="Cumulative Cases")
+
+def dailyCases():
+    st.line_chart(nation_cum, x='epi_date_V2', y='Cases')
+
+def sevenDayAvg():
+    st.bar_chart(nation_cum, x='epi_date_V2', y='7-Day Average', use_container_width=True)
 
 def main():
     drawPieChart()
