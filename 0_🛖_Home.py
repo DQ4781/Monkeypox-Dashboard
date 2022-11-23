@@ -13,11 +13,46 @@ st.sidebar.success("Select a page above.")
 st.title("Tracking US Monkeypox Infections in Real Time")
 
 
-st.line_chart(nation_cum, x="epi_date_V2", y="Cumulative Cases")
+st.header("Overview")
 
-st.line_chart(nation_cum, x='epi_date_V2', y='Cases')
+tab1, tab2, tab3 = st.tabs(["All Time", "Last Month", "Last Week"])
 
-st.bar_chart(nation_cum, x='epi_date_V2', y='7-Day Average', use_container_width=True)
+
+# All Time, Last Month, Last Week
+# --------------------------------
+# Number of Cases           
+
+with tab1:
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Number of Cases")
+        st.caption("Testing fi this cpations is going to wrap the text around or hele im oing toi be realvery difficult")
+        cumCases = nation_cum['Cumulative Cases'].iloc[-1]
+        st.metric(label="Cases", value=cumCases)
+    with col2:
+        st.subheader("Number of Tests")
+        st.caption("Testing fi this cpations is going to wrap the text around or hele im oing toi be realvery difficult")
+        tests = gender_tests['Total Male Tests'].sum() + gender_tests['Total Female Tests'].sum()
+        st.metric(label="Tests", value=tests)
+
+
+with tab2:
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Number of Cases Tab 2 Col1")
+    with col2:
+        st.subheader("Testing Tab 2 Col 2")
+
+with tab3:
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Testing Tab 3 Col1")
+    with col2:
+        st.subheader("Testing Tab 3 Col 2")
+
+
+
+
 
 
 
