@@ -10,13 +10,17 @@ gender_confirm = pd.read_csv("csv/ageGender.csv")
 race_percent = pd.read_csv("csv/raceWeeklyPercent.csv")
 symptoms = pd.read_csv("csv/symptoms.csv")
 
-
+# Drop US territories; only want Continental US
 state_total.drop([0,53,40], inplace=True)
 state_vac.drop([0,1,2,57], inplace=True)
 
-nation_cum['epi_date_V2'] = pd.to_datetime(nation_cum['epi_date_V2'])
-race_percent['MMWR Week'] = pd.to_datetime(race_percent['MMWR Week'])
+# Reformat calendar dates to ISO 8601 
+nation_cum['epi_date_V2']   = pd.to_datetime(nation_cum['epi_date_V2'])
+race_percent['MMWR Week']   = pd.to_datetime(race_percent['MMWR Week'])
+gender_tests['Week']        = pd.to_datetime(gender_tests['Week'])
 
+# Reindex Gender Tests
+#gender_tests.set_index('Week', inplace=True)
 
 state_vac.set_index("Reporting Jurisdictions", inplace=True)
 nyc = state_vac['Total'].loc["New York City"]
