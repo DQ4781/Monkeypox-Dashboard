@@ -98,7 +98,14 @@ def weeklyDifference():
 
 def weeklyRace():
     st.header("Weekly Percentage Difference of Race")
-    st.line_chart(race_percent, x='MMWR Week', width=700, height=700)
+
+    options = race_percent.columns[1:]
+    series = race_percent.iloc[-1][1:]
+    max_value = series.max()
+    default = series[series == max_value].index[0]
+
+    races = st.multiselect(label="Select which races to display", options=options, default=default)
+    st.line_chart(data=race_percent, x='MMWR Week', y=races, width=700, height=700)
 
 def cumCases():
     st.line_chart(nation_cum, x="epi_date_V2", y="Cumulative Cases")
