@@ -1,17 +1,17 @@
 Symptom,Percentage,Numerator,Denominator
-Rash,97.4,13724,14085
-Fever,65.9,7359,11175
-Malaise (tiredness),64.2,6460,10064
-Chills,61.2,6292,10287
-Pruritis (itching),58.9,4784,8124
-Headache,56.5,5570,9850
-Enlarged Lymph Nodes (swollen glands),56.3,5630,10005
-Myalgia (muscle aches),55,5402,9822
-Rectal Pain,39.7,3665,9221
-Rectal Bleeding,22.2,1800,8092
-Tenesmus (cramping pain in the rectum),20.3,1400,6913
-Pus or blood in stoll,18.4,1277,6923
-Vomiting or Nausea,18.1,1219,6723
-"Proctitis (swelling, soreness in the rectal area)",15.1,827,5459
-Abdominal Pain,14.8,1208,8168
-Conjunctivitis (redness or pain in the eye),4.7,315,6654
+Rash,97.3,16635,17104
+Fever,63.8,9050,14177
+Malaise (tiredness),62.5,8035,12856
+Chills,59.4,7789,13121
+Pruritis (itching),58.8,5967,10153
+Headache,54.6,6973,12773
+Enlarged Lymph Nodes (swollen glands),54.3,6968,12843
+Myalgia (muscle aches),52.8,6662,12619
+Rectal Pain,38.1,4609,12101
+Rectal Bleeding,21.3,2333,10959
+Tenesmus (cramping pain in the rectum),20.7,1930,9309
+Pus or blood in stool,19.2,1712,8920
+Vomiting or Nausea,18.8,1661,8829
+"Proctitis (swelling, soreness in the rectal area)",15.6,1118,7181
+Abdominal Pain,14.6,1522,10453
+Conjunctivitis (redness or pain in the eye),5,442,8808
