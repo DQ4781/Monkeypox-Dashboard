@@ -15,9 +15,9 @@ state_total.drop([0,53,40], inplace=True)
 state_vac.drop([0,1,2,57], inplace=True)
 
 # Reformat calendar dates to ISO 8601 
-nation_cum['epi_date_V2']   = pd.to_datetime(nation_cum['epi_date_V2'])
-race_percent['MMWR Week']   = pd.to_datetime(race_percent['MMWR Week'])
-gender_tests['Week']        = pd.to_datetime(gender_tests['Week'])
+nation_cum['epi_date_V2']   = pd.to_datetime(nation_cum['epi_date_V2'], format='%Y-%m-%d', errors='coerce', utc=True)
+race_percent['MMWR Week']   = pd.to_datetime(race_percent['MMWR Week'], format='%Y-%m-%d', errors='coerce', utc=True)
+gender_tests['Week']        = pd.to_datetime(gender_tests['Week'], format='%Y-%m-%d', errors='coerce', utc=True)
 
 # Reindex Gender Tests
 #gender_tests.set_index('Week', inplace=True)
