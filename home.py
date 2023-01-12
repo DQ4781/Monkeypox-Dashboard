@@ -1,7 +1,8 @@
 import streamlit as st
-import pandas as pd
+import plotly.express as px
 from data import *
-
+from pages.gis import drawCaseMap, drawVacMap
+from pages.demographics import *
 
 ## PAGE INFO
 st.set_page_config(
@@ -10,7 +11,8 @@ st.set_page_config(
     layout="wide"
 )
 st.sidebar.success("Select a page above.")
-st.title("US mpox Dashboard")
+st.title("mpox Cases in the United States")
+st.markdown("An Interactive Dashboard By [**CSUF's CEDDI Lab**](https://www.sampsonakwafuo.com/ceddi-lab)")
 
 def overviewModule():
     st.header("Overview")
@@ -52,8 +54,48 @@ def overviewModule():
             st.metric(label=f"Reporting as of {genderDates[-2]}",value=dates[2][1]['Total_Tests'])
 
 
+def gisModule():
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        radio = st.radio(label='Select One of the Following', options=['Cases', 'Vaccines'])
+
+        if radio == 'Cases':
+            st.write("temp")       
+        else:
+            st.write("yerrrr")
+    
+    
+    with col2:
+        state = st.selectbox(label="Select a State", options=state_total['Location'])
+    
+    
+    with col3:
+        if radio == 'Cases':
+            st.metric(  label=f"Cases in {state}", 
+                        value=state_total['Cases'][state_total['Location']==state]
+                    )
+        else:
+            st.metric(  label=f"Vaccines Administered in {state}", 
+                        value=int(state_vac['Total'][state_vac['Reporting Jurisdictions']==state])
+                    )
+
+
 def main():
+    drawCaseMap()
+    drawVacMap()
+    gisModule()
     overviewModule()
+    drawPieChart()
+    ageDistro()
+    weeklyRace()
+    weeklyDifference()
+    cumCases()
+    dailyCases()
+    sevenDayAvg()
+
+
+
 
 
 main()
