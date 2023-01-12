@@ -1,17 +1,6 @@
 import streamlit as st
-import matplotlib.pyplot as plt
 import plotly.express as px
 from data import * 
-
-
-st.set_page_config(
-    page_title="Demographic Data",
-    page_icon="👥",
-    layout="wide"
-)
-
-st.title("Demographics Page")
-
 
 def drawPieChart():
     names = list(gender_confirm.head())[1:]
@@ -24,7 +13,6 @@ def drawPieChart():
     fig = px.pie(gender_confirm, values=values, names=names, title="Gender Pie Chart")
     
     st.plotly_chart(fig, theme='streamlit', use_container_width=True)
-
 
 def calculateDeltas(weeks):
 
@@ -125,23 +113,23 @@ def ageDistro():
     st.plotly_chart(fig, theme='streamlit', use_container_width=True)
 
 
-def main():
-    bol1, bol2 = st.columns(2)
-    with bol1:
-        drawPieChart()
-    with bol2:
-        ageDistro()
+#def main():
+#    bol1, bol2 = st.columns(2)
+#    with bol1:
+#        drawPieChart()
+#    with bol2:
+#        ageDistro()
 
-    weeklyRace()
-    weeklyDifference()
+#    weeklyRace()
+#    weeklyDifference()
 
-    col1, col2 = st.columns(2)
-    with col1:
-        cumCases()
-    with col2:
-        dailyCases()
+#    col1, col2 = st.columns(2)
+#    with col1:
+#        cumCases()
+#    with col2:
+#        dailyCases()
     
-    sevenDayAvg()
+#    sevenDayAvg()
 
 
-main()
+#main()
