@@ -1,55 +1,43 @@
-import streamlit as st
-import pandas as pd
-import folium
-from streamlit_folium import folium_static
-from folium import features
+import plotly.express as px
+import json
 from data import *
+import streamlit as st
 
 
-st.set_page_config(
-    page_title="GIS",
-    page_icon="🌐",
-    layout="wide"
-)
+with open('usState.json') as json_file:
+    file = json.load(json_file)
 
-st.title("GIS Data")
-
-
-jsonFile = "usState.geojson"
-
-m = folium.Map(location=[40, -96], name="Light Map", zoom_start=5, tiles="openstreetmap")
-v = folium.Map(location=[40, -96], name="Light Map", zoom_start=5, tiles="openstreetmap")
-
-# Cases
-folium.Choropleth(
-    geo_data=jsonFile,
-    name="choropleth",
-    data=state_total,
-    columns=["Location", "Cases"],
-    key_on="feature.properties.ste_name",
-    fill_color="YlOrRd",
-    fill_opacity=0.7,
-    line_opacity=0.1,
-    legend_name="Cases In US"
-).add_to(m)
-
-folium.features.GeoJson('usState.geojson', name="States", popup=folium.features.GeoJsonPopup(fields=["ste_name"])).add_to(m)
+cases = px.choropleth_mapbox(data_frame=state_total,
+                           geojson=file,
+                           featureidkey="properties.NAME",
+                           locations="Location",
+                           color_continuous_scale="Viridis", 
+                           range_color=(0,3000), 
+                           mapbox_style="carto-positron", 
+                           zoom=3, 
+                           center={"lat": 37.0902, "lon": -95.7129}, 
+                           opacity=0.5, 
+                           color='Cases', 
+                           labels={'Cases':'Cases Recorded'})
+cases.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
 
-# Vaccines
-folium.Choropleth(
-    geo_data=jsonFile,
-    name="choropleth",
-    data=state_vac,
-    columns=["Reporting Jurisdictions", "Total"],
-    key_on="feature.properties.ste_name",
-    fill_color="YlOrBr",
-    fill_opacity=0.7,
-    line_opacity=0.1,
-    legend_name="Vaccines Adminstered in the US"
-).add_to(v)
+vac = px.choropleth_mapbox(data_frame=state_vac,
+                           geojson=file,
+                           featureidkey="properties.NAME",
+                           locations="Reporting Jurisdictions",
+                           color_continuous_scale="Viridis", 
+                           range_color=(300,100000), 
+                           mapbox_style="carto-positron", 
+                           zoom=3, 
+                           center={"lat": 37.0902, "lon": -95.7129}, 
+                           opacity=0.5, 
+                           color='Total', 
+                           labels={'Total':'Vaccines Administered'})
+vac.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
-folium.features.GeoJson('usState.geojson', name="States", popup=folium.features.GeoJsonPopup(fields=["ste_name"])).add_to(v)
+def drawCaseMap():
+    st.plotly_chart(cases)
 
-folium_static(m, width=1000, height=500)
-folium_static(v, width=1000, height=500)
+def drawVacMap():
+    st.plotly_chart(vac)
