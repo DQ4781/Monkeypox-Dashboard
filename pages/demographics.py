@@ -10,9 +10,10 @@ def drawPieChart():
                 int(gender_confirm["Transgender women"].sum()),
                 int(gender_confirm["Women"].sum())
             ]
-    fig = px.pie(gender_confirm, values=values, names=names, title="Gender Pie Chart")
+    colors = ['#1D3354', '#D64045', '#E9FFF9', '#8ED8DB', '#467599']
+    fig = px.pie(gender_confirm, values=values, names=names, color_discrete_sequence=colors)
     
-    st.plotly_chart(fig, theme='streamlit', use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True)
 
 def calculateDeltas(weeks):
 
@@ -99,37 +100,16 @@ def sevenDayAvg():
     st.bar_chart(nation_cum, x='epi_date_V2', y='7-Day Average', use_container_width=True)
 
 
-def ageDistro():
+def drawAgeDistro():
     pct_gc = gender_confirm.copy(deep=True)
     pct_gc.set_index('web_age_grp', inplace=True)
     
     sums = sum(list(pct_gc.sum(axis=1)))
     ages = pct_gc.index.values.tolist()
     genders = list(pct_gc.head())
+    colors = ['#8ED8DB', '#1D3354', '#467599', '#E9FFF9', '#D64045']
 
     pct_gc = pct_gc.div(sums)
 
-    fig = px.bar(pct_gc, x=ages, y=genders, title='Proportion of Gender')
-    st.plotly_chart(fig, theme='streamlit', use_container_width=True)
-
-
-#def main():
-#    bol1, bol2 = st.columns(2)
-#    with bol1:
-#        drawPieChart()
-#    with bol2:
-#        ageDistro()
-
-#    weeklyRace()
-#    weeklyDifference()
-
-#    col1, col2 = st.columns(2)
-#    with col1:
-#        cumCases()
-#    with col2:
-#        dailyCases()
-    
-#    sevenDayAvg()
-
-
-#main()
+    fig = px.bar(pct_gc, x=ages, y=genders, color_discrete_sequence=colors)
+    st.plotly_chart(fig, use_container_width=True)
