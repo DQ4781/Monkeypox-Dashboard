@@ -19,7 +19,7 @@ cases = px.choropleth_mapbox(data_frame=state_total,
                            opacity=0.5, 
                            color='Cases', 
                            labels={'Cases':'Cases Recorded'})
-cases.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+#cases.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
 
 vac = px.choropleth_mapbox(data_frame=state_vac,
@@ -34,10 +34,10 @@ vac = px.choropleth_mapbox(data_frame=state_vac,
                            opacity=0.5, 
                            color='Total', 
                            labels={'Total':'Vaccines Administered'})
-vac.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+#vac.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
 def drawCaseMap():
-    st.plotly_chart(cases)
+    st.plotly_chart(cases, use_container_width=False)
 
 def drawVacMap():
-    st.plotly_chart(vac)
+    st.plotly_chart(vac, use_container_width=False)
