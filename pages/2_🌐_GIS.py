@@ -3,6 +3,11 @@ import json
 from data import *
 import streamlit as st
 
+st.set_page_config(
+    page_title="GIS",
+    page_icon="🌐"
+)
+
 
 with open('usState.json') as json_file:
     file = json.load(json_file)
@@ -41,3 +46,34 @@ def drawCaseMap():
 
 def drawVacMap():
     st.plotly_chart(vac, use_container_width=False)
+
+def gisModule():
+    st.header("GIS Map")
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        radio = st.radio(label='Select One of the Following', options=['Cases', 'Vaccines'])    
+    
+    with col2:
+        state = st.selectbox(label="Select a State", options=state_total['Location'])
+    
+    with col3:
+        if radio == 'Cases':
+            st.metric(  label=f"Cases in {state}", 
+                        value=state_total['Cases'][state_total['Location']==state]
+                    )
+        else:
+            st.metric(  label=f"Vaccines Administered in {state}", 
+                        value=int(state_vac['Total'][state_vac['Reporting Jurisdictions']==state])
+                    )
+    
+    if radio == 'Cases':
+        drawCaseMap()      
+    else:
+        drawVacMap()
+
+def main():
+    st.title("Geographic Information System")
+    gisModule()
+
+main()

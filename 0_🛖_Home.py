@@ -1,8 +1,6 @@
 import streamlit as st
 import plotly.express as px
 from data import *
-from pages.gis import drawCaseMap, drawVacMap
-from pages.demographics import *
 
 ## PAGE INFO
 st.set_page_config(
@@ -18,12 +16,16 @@ st.markdown("An Interactive Dashboard By [**CSUF's CEDDI Lab**](https://www.samp
 def overviewModule():
     st.header("Overview")
     
-    tab1, tab2, tab3, tab4, tab5 = st.tabs(["All Time", "Last Month", "Last Week", "Weekly Difference", "Weekly Race Difference"])
+    tab1, tab2, tab3= st.tabs(["All Time", "Last Month", "Last Week"])
 
-    dates = [[nation_cum.iloc[-1], gender_tests.iloc[-1]], 
-            [nation_cum.iloc[-30], gender_tests.iloc[-4]], 
-            [nation_cum.iloc[-7], gender_tests.iloc[-2]]]
-    deltas = [(dates[0][0]['Cumulative Cases']-dates[1][0]['Cumulative Cases']),(dates[0][0]['Cumulative Cases']-dates[2][0]['Cumulative Cases'])] 
+    dates = [
+                [nation_cum.iloc[-1], gender_tests.iloc[-1]], 
+                [nation_cum.iloc[-30], gender_tests.iloc[-4]], 
+                [nation_cum.iloc[-7], gender_tests.iloc[-2]]
+            ]
+    deltas = [  (dates[0][0]['Cumulative Cases']-dates[1][0]['Cumulative Cases']),
+                (dates[0][0]['Cumulative Cases']-dates[2][0]['Cumulative Cases'])
+             ] 
     genderDates = gender_tests.index.tolist()
 
     # All Time
@@ -53,47 +55,18 @@ def overviewModule():
         with col2:
             st.subheader("Tests")
             st.metric(label=f"Reporting as of {genderDates[-2]}",value=dates[2][1]['Total_Tests'])
-    # Weekly Difference
-    with tab4:
-        weeklyDifference()
-    # Weekly Race 
-    with tab5:
-        weeklyRace()
 
 
-def gisModule():
-    st.header("GIS Map")
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        radio = st.radio(label='Select One of the Following', options=['Cases', 'Vaccines'])    
-    
-    with col2:
-        state = st.selectbox(label="Select a State", options=state_total['Location'])
-    
-    with col3:
-        if radio == 'Cases':
-            st.metric(  label=f"Cases in {state}", 
-                        value=state_total['Cases'][state_total['Location']==state]
-                    )
-        else:
-            st.metric(  label=f"Vaccines Administered in {state}", 
-                        value=int(state_vac['Total'][state_vac['Reporting Jurisdictions']==state])
-                    )
-    
-    if radio == 'Cases':
-        drawCaseMap()      
-    else:
-        drawVacMap()
+def cumCases():
+    st.line_chart(nation_cum, x="epi_date_V2", y="Cumulative Cases")
 
 
-def genderModule():
-    col1, col2 = st.columns(2)
+def dailyCases():
+    st.line_chart(nation_cum, x='epi_date_V2', y='Cases')
 
-    with col1:
-        drawPieChart()
-    with col2:
-        drawAgeDistro()
+
+def sevenDayAvg():
+    st.bar_chart(nation_cum, x='epi_date_V2', y='7-Day Average', use_container_width=True)
 
 
 def casesModule():
@@ -109,9 +82,7 @@ def casesModule():
 
 def main():
     overviewModule()
-    genderModule()
     casesModule()
-    gisModule()
 
 
 

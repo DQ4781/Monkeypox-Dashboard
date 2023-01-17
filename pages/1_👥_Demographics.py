@@ -15,6 +15,7 @@ def drawPieChart():
     
     st.plotly_chart(fig, use_container_width=True)
 
+
 def calculateDeltas(weeks):
 
     pairs = [pd.Series(list((gender_tests.loc[weeks[0]][0], gender_tests.loc[weeks[1]][0]))),
@@ -113,3 +114,21 @@ def drawAgeDistro():
 
     fig = px.bar(pct_gc, x=ages, y=genders, color_discrete_sequence=colors)
     st.plotly_chart(fig, use_container_width=True)
+
+def genderModule():
+    col1, col2 = st.columns(2)
+
+    with col1:
+        drawPieChart()
+    with col2:
+        drawAgeDistro()
+
+def main():
+    st.title("Demographics")
+    st.header("Age and Gender Distribution")
+    genderModule()
+    weeklyDifference()
+    weeklyRace()
+
+
+main()
