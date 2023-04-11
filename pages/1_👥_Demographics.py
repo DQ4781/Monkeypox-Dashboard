@@ -90,15 +90,15 @@ def weeklyRace():
 
 
 def cumCases():
-    st.line_chart(nation_cum, x="epi_date_V2", y="Cumulative Cases")
+    st.line_chart(nation_cum, x="Epi_date_V3", y="Cumulative Cases")
 
 
 def dailyCases():
-    st.line_chart(nation_cum, x='epi_date_V2', y='Cases')
+    st.line_chart(nation_cum, x='Epi_date_V3', y='Cases')
 
 
 def sevenDayAvg():
-    st.bar_chart(nation_cum, x='epi_date_V2', y='7-Day Average', use_container_width=True)
+    st.bar_chart(nation_cum, x='Epi_date_V3', y='7-Day Average', use_container_width=True)
 
 
 def drawAgeDistro():

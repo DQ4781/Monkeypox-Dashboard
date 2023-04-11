@@ -33,7 +33,7 @@ def overviewModule():
         col1, col2 = st.columns(2)
         with col1:
             st.subheader("Total Cases")
-            st.metric(label=f"Reporting as of {dates[0][0]['epi_date_V2']}", value=dates[0][0]['Cumulative Cases'])
+            st.metric(label=f"Reporting as of {dates[0][0]['Epi_date_V3']}", value=dates[0][0]['Cumulative Cases'])
         with col2:
             st.subheader("Total Tests")
             st.metric(label=f"Reporting as of {genderDates[-1]}", value=gender_tests['Total_Tests'].sum())
@@ -42,7 +42,7 @@ def overviewModule():
         col1, col2 = st.columns(2)
         with col1:
             st.subheader("Cases")
-            st.metric(label=f"Reporting as of {dates[1][0]['epi_date_V2']}",value=deltas[0])
+            st.metric(label=f"Reporting as of {dates[1][0]['Epi_date_V3']}",value=deltas[0])
         with col2:
             st.subheader("Tests")
             st.metric(label=f"Reporting as of {genderDates[-4]}",value=dates[1][1]['Total_Tests'])
@@ -51,22 +51,22 @@ def overviewModule():
         col1, col2 = st.columns(2)
         with col1:
             st.subheader("Cases")
-            st.metric(label=f"Reporting as of {dates[2][0]['epi_date_V2']}",value=deltas[1])
+            st.metric(label=f"Reporting as of {dates[2][0]['Epi_date_V3']}",value=deltas[1])
         with col2:
             st.subheader("Tests")
             st.metric(label=f"Reporting as of {genderDates[-2]}",value=dates[2][1]['Total_Tests'])
 
 
 def cumCases():
-    st.line_chart(nation_cum, x="epi_date_V2", y="Cumulative Cases")
+    st.line_chart(nation_cum, x="Epi_date_V3", y="Cumulative Cases")
 
 
 def dailyCases():
-    st.line_chart(nation_cum, x='epi_date_V2', y='Cases')
+    st.line_chart(nation_cum, x='Epi_date_V3', y='Cases')
 
 
 def sevenDayAvg():
-    st.bar_chart(nation_cum, x='epi_date_V2', y='7-Day Average', use_container_width=True)
+    st.bar_chart(nation_cum, x='Epi_date_V3', y='7-Day Average', use_container_width=True)
 
 
 def casesModule():

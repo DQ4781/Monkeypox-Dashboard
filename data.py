@@ -15,7 +15,7 @@ state_total.drop([0,53,40], inplace=True)
 state_vac.drop([0,1,2,57], inplace=True)
 
 # Reformat calendar dates to ISO 8601 
-nation_cum['epi_date_V2']   = pd.to_datetime(nation_cum['epi_date_V2']).dt.date
+nation_cum['Epi_date_V3']   = pd.to_datetime(nation_cum['Epi_date_V3']).dt.date
 race_percent['MMWR Week']   = pd.to_datetime(race_percent['MMWR Week']).dt.date
 gender_tests['Week']        = pd.to_datetime(gender_tests['Week']).dt.date
 
